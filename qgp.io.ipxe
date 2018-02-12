@@ -1,0 +1,15 @@
+#!ipxe
+#echo "going to sleep"
+#sleep 20
+#dhcp && goto ready
+
+prompt --key 0x02 --timeout 3000 Press Ctrl-B for the ipxe shell || goto netboot
+shell
+
+:netboot
+ifclose
+dhcp && goto ready
+shell
+
+:ready
+chain http://www.qgp.io/boot/netboot.php
